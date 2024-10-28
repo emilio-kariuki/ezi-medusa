@@ -27,7 +27,6 @@ services:
       POSTGRES_DB: ezitech
     networks:
       - ezinetwork
-    restart: unless-stopped
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       interval: 30s
