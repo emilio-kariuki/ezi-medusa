@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  medusa:
+    image: node:latest
+    working_dir: /app/medusa
+    volumes:
+      - .:/app/medusa
+    environment:
+      - JWT_SECRET=ecoville
+      - COOKIE_SECRET=ecoville
+      - DATABASE_URL=postgresql://ezitech_user:yBAKOzXTzOSUJP1N0bPqPTpW8QhhWOhV@dpg-csda8mpu0jms73b9gm1g-a.oregon-postgres.render.com/ezitech?sslmode=require
+      - REDIS_URL=rediss://red-csfnlbo8fa8c73a13vq0:Bc9LjiDLq5jtoA1w9KnbCKoFnNTYIFpU@oregon-redis.render.com:6379
+    command: >
+      /bin/sh -c "
+      apt-get update && 
+      apt-get install -y python3 python3-pip python-is-python3 && 
+      yarn global add @medusajs/medusa-cli && 
+      yarn && 
+      yarn build && 
+      medusa migrations run && 
+      yarn start
+      "
+    ports:
+      - "3000:3000"
