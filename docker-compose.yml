@@ -13,7 +13,7 @@ services:
       NODE_ENV: production
       JWT_SECRET: ecoville
       COOKIE_SECRET: ecoville
-      REDIS_URL: rediss://red-csfnlbo8fa8c73a13vq0:Bc9LjiDLq5jtoA1w9KnbCKoFnNTYIFpU@oregon-redis.render.com:6379
+      REDIS_URL: redis://:redispassword@84.247.174.84:6380
       STORE_CORS: http://localhost
     ports:
       - "9000:9000"
@@ -26,4 +26,17 @@ services:
       POSTGRES_DB: ezitech
 
   redis:
-    restart: always
+    image: redis
+    command: ["redis-server", "--requirepass", "redispassword"]
+    environment:
+      - REDIS_PASSWORD=redispassword
+    ports:
+      - "6380:6380"
+    networks:
+      - picsanetwork
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
