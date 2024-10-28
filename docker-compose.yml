@@ -12,6 +12,9 @@ services:
     environment:
       DATABASE_URL: postgresql://ezitech_user:yBAKOzXTzOSUJP1N0bPqPTpW8QhhWOhV@dpg-csda8mpu0jms73b9gm1g-a.oregon-postgres.render.com/ezitech?sslmode=require
       NODE_ENV: production
+      JWT_SECRET: ecoville
+      COOKIE_SECRET: ecoville
+      REDIS_URL: rediss://red-csfnlbo8fa8c73a13vq0:Bc9LjiDLq5jtoA1w9KnbCKoFnNTYIFpU@oregon-redis.render.com:6379
       STORE_CORS: http://localhost
     ports:
       - "9000:9000"
