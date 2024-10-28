@@ -29,7 +29,7 @@ COPY develop.sh .
 
 COPY .env .
 
-COPY medusa-config.js .
+COPY medusa-config.ts .
 
 RUN apt-get update
 
