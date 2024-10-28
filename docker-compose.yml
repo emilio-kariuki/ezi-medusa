@@ -19,11 +19,20 @@ services:
       - "9000:9000"
 
   postgres:
+    image: postgres
     restart: always
     environment:
       POSTGRES_USER: ezitech
       POSTGRES_PASSWORD: ecoville
       POSTGRES_DB: ezitech
+    networks:
+      - ezinetwork
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   redis:
     image: redis
